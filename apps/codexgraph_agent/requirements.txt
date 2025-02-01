@@ -1,3 +1,4 @@
 fasteners
 py2neo
 streamlit
+python-dotenv

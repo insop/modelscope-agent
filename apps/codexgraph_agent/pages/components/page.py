@@ -28,9 +28,16 @@ def get_llm_config(llm_name):
     elif llm_name == 'gpt-4o':
 
         llm_config = {
-            'model': 'gpt-4o-2024-05-13',
+            'model': 'gpt-4o',
             'api_base': 'https://api.openai.com/v1',
             'model_server': 'openai'
+        }
+    elif llm_name == 'gpt-4o-dev':
+
+        llm_config = {
+            'model': 'gpt-4o-dev',
+            'api_base': 'https://api.openai.com/v1',
+            'model_server': 'azure_openai'
         }
 
     else:

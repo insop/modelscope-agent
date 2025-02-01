@@ -6,6 +6,9 @@ from modelscope_agent.utils.logger import agent_logger as logger
 from modelscope_agent.utils.retry import retry
 from openai import AzureOpenAI, OpenAI
 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 @register_llm('openai')
 @register_llm('azure_openai')
@@ -32,15 +35,17 @@ class OpenAi(BaseChatModel):
             api_key = kwargs.get(
                 'api_key', os.getenv('AZURE_OPENAI_API_KEY',
                                      default='EMPTY')).strip()
-            api_version = kwargs.get('api_version', '2024-06-01').strip()
+            api_version = os.getenv('AZURE_OPENAI_API_VERSION', kwargs.get('api_version', '2024-06-01').strip())
             logger.info(
                 f'client url {azure_endpoint}, client key: {api_key}, client version: {api_version}'
             )
 
+            deployment_name = os.getenv('AZURE_OPENAI_DEPLOYMENT_NAME', model)
             self.client = AzureOpenAI(
                 azure_endpoint=azure_endpoint,
                 api_key=api_key,
                 api_version=api_version,
+                azure_deployment=deployment_name,
             )
         else:
             default_api_base = os.getenv('OPENAI_API_BASE',

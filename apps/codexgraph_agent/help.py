@@ -15,6 +15,9 @@ project_root = os.path.abspath(
 if project_root not in sys.path:
     sys.path.append(project_root)
 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Help(PageBase):
 
@@ -61,10 +64,10 @@ which python
 ```
 ## 2.3 Setting the `python env` (python<=3.9) and `build index path`:
         """)
+        python_env_path = os.getenv('PYTHON_ENV_PATH', r'/Users/<YourUserName>/opt/miniconda3/envs/index_build39/bin/python')
         env_path = st.text_input(
             'Python env path',
-            placeholder=
-            r'/Users/<YourUserName>/opt/miniconda3/envs/index_build39/bin/python',
+            placeholder=python_env_path,
             value=st.session_state.shared['setting']['env_path_dict']
             ['env_path'],
             key='env_path_input')
